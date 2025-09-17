@@ -1,8 +1,4 @@
 <?php
-// Este é o valor do TITLE do App
-const TITLE = "Meu App PHP";
-
-
 /**
  * Constantes utilizadas pela classe HEADER
  * 
@@ -20,4 +16,33 @@ const MENU = [
     "inicio" => "Início",
     "sobre" => "Sobre",
     "contato" => "Contato"
+];
+
+/**
+ * 
+ * Constantes utilizadas pela classe Footer
+ * 
+ */
+const ANO = 2025;
+const ENDERECO = "Rua Pedro de Medeiros SN";
+const EMAIL = "32218@mail.com";
+const AUTOR = "Turma 32218";
+
+/**
+ * 
+ * Constantes utilizadas pela classe Layout
+ * 
+ */
+
+// Título da Aplicação definido dentro da tag TITLE
+const TITLE = "Título da Aplicação";
+
+// Lista de todos os arquivos CSS utilizados pela aplicação
+const STYLES = [
+    "bootstrap.min.css"
+];
+
+// Lista de todos os arquivos Javascript utilizados pela aplicação
+const SCRIPTS = [
+    "bootstrap.bundle.min.js"
 ];

@@ -4,9 +4,21 @@
     
     // Arquivos com as classes utilizadas para fazer o layout da página
     require_once "./classes/header.php";
+    require_once "./classes/footer.php";
+    require_once "./classes/view.php";
+    require_once "./classes/navbar.php";
 
     // Instanciando um objeto do Layout
     $header = new Header();
+
+    // Instaniando um objeto Footer
+    $footer = new Footer();
+
+    // Instanciando um objeto View
+    $view = new View();
+
+    // Instanciando um objeto Navbar
+    $navbar = new Navbar();
 ?>
 <!-- 
     Esta página possui um layout contendo:
@@ -21,12 +33,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo TITLE?></title>
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 </head>
 <body>
-    <?php $header->gerarHTML(); ?>
+    <?php 
+        // Produzindo um header
+        $header->gerarHTML(); 
+
+        // Produzindo uma barra de navegação
+        $navbar->gerarHTML();
+
+        // Carregar uma view
+        $view->gerarHTML();
+
+        // Produzindo um footer
+        $footer->gerarHTML();    
+    ?>
 
     <script src="./javascript/bootstrap.bundle.min.js"></script>
 </body>
