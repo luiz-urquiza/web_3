@@ -25,15 +25,15 @@ class Header
 	// Função que produz uma apresentação HTML do cabeçalho da página utilizando classes do Bootstrap CSS
     public function gerarHTML()
 	{
-		echo "<header class='bg-primary text-white p-3'>";
+		echo "<header class='bg-light text-dark p-3'>";
 			echo "<div class='container d-flex flex-wrap align-items-center justify-content-between'>";
-				echo "<a href='#' class='d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none'>";
+				echo "<a href='#' class='d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none'>";
         
 					if ($this->logo != NULL){
-						echo "<img src='{$this->logo}' alt='Logo' class='me-2 rounded'>";
+						echo "<img src='./imagens/{$this->logo}' alt='Logo' class='me-2 rounded'>";
 					}
-		
-					echo "<span class='fs-4'>{$this->titulo}</span>";
+					echo "<h1>{$this->titulo}</h1>";
+					
 				echo "</a>";
 			echo "</div>";
 		echo "</header>";
