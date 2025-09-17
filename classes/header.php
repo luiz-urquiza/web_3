@@ -8,27 +8,18 @@
  * 		  - $titulo (string): O título principal do App
  * 		  - $logo (string): Nome do arquivo de imagem (jpg, png, etc) com a logo do App
  * 				Este arquivo deve estar na pasta ./imagens
- * 		  - $menu (lista estruturada URL => ROTULO): é um array de rótulos indexados pela sua URL
  * 
  */
 class Header
 {
     private $titulo;
     private $logo;
-    private $menu;
-
+   
 	// Construtor da classe - As constantes TITULO, LOGO e MENU são definidas no arquivo ./config.php
-    public function __construct($titulo = TITULO, $logo = LOGO, $menu = MENU)
+    public function __construct($titulo = TITULO, $logo = LOGO)
 	{
         $this->titulo = $titulo;
         $this->logo = $logo;
-        $this->menu = $menu;
-    }
-
-	// Função que adiciona um novo link no menu passando sua url e seu rótulo
-    public function adicionarLink($url, $rotulo)
-	{
-        $this->menu[$url] = $rotulo;
     }
 
 	// Função que produz uma apresentação HTML do cabeçalho da página utilizando classes do Bootstrap CSS
@@ -44,13 +35,7 @@ class Header
 		
 					echo "<span class='fs-4'>{$this->titulo}</span>";
 				echo "</a>";
-	
-				echo "<ul class='nav'>";
-				foreach ($this->menu as $url => $rotulo){
-					echo "<li class='nav-item'><a href='{$url}' class='nav-link text-white'>{$rotulo}</a></li>";
-				}
-				echo "</ul>";
 			echo "</div>";
-		echo "<header>";
+		echo "</header>";
     }
 }
