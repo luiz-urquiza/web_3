@@ -27,7 +27,7 @@ class Header
 	{
 		echo "<header class='bg-light text-dark p-3'>";
 			echo "<div class='container d-flex flex-wrap align-items-center justify-content-between'>";
-				echo "<a href='#' class='d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none'>";
+				echo "<a href='index.php' class='d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none'>";
         
 					if ($this->logo != NULL){
 						echo "<img src='./imagens/{$this->logo}' alt='Logo' class='me-2 rounded'>";
