@@ -57,4 +57,47 @@ abstract class Model{
         return $dados;
     }
 
+    public function pertence_a($classeReferenciada, $atributoFK){
+        // Pega o valor da chave FK
+        $valorFK = $this->$atributoFK;
+
+        // Executa o método find da $classeReferenciada para retornar o registro proprietário
+        return $classeReferenciada::find($valorFK);  
+    }
+
+    public function possui_um($classeReferenciada, $atributoFK){
+        // Pega o valor da chave PK
+        $valorPK = $this->id;
+
+        // Pega o nome da tabela referenciada
+        $tabela = $classeReferenciada::$tabela;
+
+        // Prepara e executa a consulta
+        $stmt = Database::getConnection()->prepare("SELECT * FROM $tabela WHERE $atributoFK = :valorPK");
+        $stmt->execute(["valorPK" => $valorPK]);
+
+        // Pega o registro gerado pela consulta
+        $registro = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Transforma o registro em objeto e retorna
+        return $registro? new $classeReferenciada($registro): NULL;  
+    }
+
+    public function possui_muitos($classeReferenciada, $atributoFK){
+        // Pega o valor da chave PK
+        $valorPK = $this->id;
+
+        // Pega o nome da tabela referenciada
+        $tabela = $classeReferenciada::$tabela;
+
+        // Prepara a e executa a consulta
+        $stmt = Database::getConnection()->prepare("SELECT * FROM $tabela WHERE $atributoFK = :valorPK");
+        $stmt->execute(["valorPK" => $valorPK]);
+
+        // Pega o todos os registros gerados
+        $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Transforma todas os registros em um array de objetos e retorna
+        return array_map(fn($r) => new $classeReferenciada($r), $registros);  
+    }
 } 
