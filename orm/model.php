@@ -57,28 +57,35 @@ abstract class Model{
         return $dados;
     }
 
+
+    /** Relacionamento um para um genérico */
     public function pertence_a($classeReferenciada, $atributoFK){
         // Pega o valor da chave FK
         $valorFK = $this->$atributoFK;
-
+      
         // Executa o método find da $classeReferenciada para retornar o registro proprietário
         return $classeReferenciada::find($valorFK);  
     }
 
+    /**
+     * Representa um relacionamento um para um do lado do proprietário
+     * 
+     * O proprietário busca o registro que pertence a ele
+     */
     public function possui_um($classeReferenciada, $atributoFK){
         // Pega o valor da chave PK
         $valorPK = $this->id;
-
+      
         // Pega o nome da tabela referenciada
         $tabela = $classeReferenciada::$tabela;
-
+      
         // Prepara e executa a consulta
         $stmt = Database::getConnection()->prepare("SELECT * FROM $tabela WHERE $atributoFK = :valorPK");
         $stmt->execute(["valorPK" => $valorPK]);
-
+      
         // Pega o registro gerado pela consulta
         $registro = $stmt->fetch(PDO::FETCH_ASSOC);
-
+      
         // Transforma o registro em objeto e retorna
         return $registro? new $classeReferenciada($registro): NULL;  
     }
@@ -86,17 +93,40 @@ abstract class Model{
     public function possui_muitos($classeReferenciada, $atributoFK){
         // Pega o valor da chave PK
         $valorPK = $this->id;
-
+      
         // Pega o nome da tabela referenciada
         $tabela = $classeReferenciada::$tabela;
-
+      
         // Prepara a e executa a consulta
         $stmt = Database::getConnection()->prepare("SELECT * FROM $tabela WHERE $atributoFK = :valorPK");
         $stmt->execute(["valorPK" => $valorPK]);
-
+      
         // Pega o todos os registros gerados
         $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+        // Transforma todas os registros em um array de objetos e retorna
+        return array_map(fn($r) => new $classeReferenciada($r), $registros);  
+    }
 
+    public function pertence_a_muitos($classeReferenciada, $tabelaPivo, $fkLocal, $fkReferenciada){
+        // Pega o valor da chave PK local
+        $valorPK = $this->id;
+      
+        // Pega o nome da tabela referenciada
+        $tabelaReferenciada = $classeReferenciada::$tabela;
+      
+        // Prepara a e executa a consulta
+        $stmt = Database::getConnection()->prepare("SELECT $tabelaReferenciada.* 
+           FROM $tabelaReferenciada 
+           JOIN $tabelaPivo ON $tabelaReferenciada.id = $tabelaPivo.$fkReferenciada
+           WHERE $fkLocal = :valorPK"
+        );
+      
+        $stmt->execute(["valorPK" => $valorPK]);
+      
+        // Pega o todos os registros gerados
+        $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
         // Transforma todas os registros em um array de objetos e retorna
         return array_map(fn($r) => new $classeReferenciada($r), $registros);  
     }
