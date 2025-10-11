@@ -9,13 +9,17 @@
 const TITULO = "Meu Título";
 
 // Nome do arquivo de imagem com o logo do App. Caso não haja logo, o valor é NULL
-const LOGO = NULL;
+const LOGO = "marcaifms.png";
 
 // Itens para formar os hyperlinks do menu do HEADER url => rótulo
 const MENU = [
     "inicio" => "Início",
     "sobre" => "Sobre",
-    "contato" => "Contato"
+    "contato" => "Contato",
+    "usuarios" => "Usuários",
+    "livros" => "Livros",
+    "autores" => "Autores",
+    "paises" => "Países"
 ];
 
 /**
