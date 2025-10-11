@@ -11,6 +11,7 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
+            <th>Nacionalidade</th>
             <th>Livros</th>
             <th>Ações</th>
         </tr>
@@ -22,13 +23,10 @@
                 echo "<tr>";
                     echo "<td>{$autor->id}</td>";
                     echo "<td>{$autor->nome}</td>";
+                    echo "<td>{$autor->pais()->gentilico}</td>";
 
                     echo "<td>";
-                    echo "<ul>";
-                    foreach ($autor->livros() as $livro){
-                        echo "<li>{$livro->titulo}</li>";
-                    }
-                    echo "</ul>";
+                    echo count($autor->livros());
                     echo "</td>";
 
                     echo "<td>";
