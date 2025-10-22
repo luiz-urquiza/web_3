@@ -6,6 +6,8 @@
 
 <h3>Autores de Livros</h3>
 
+<a href="index.php?view=inserirAutor" class="btn btn-primary">Inserir Autor</a>
+
 <table class="table table-hover">
     <thead>
         <tr>
@@ -32,7 +34,7 @@
                     echo "<td>";
                     echo "<div class='btn-group'>";
                         echo "<a class='btn btn-primary btn-sm'>Alterar</a>"; 
-                        echo "<a class='btn btn-primary btn-sm'>Excluir</a>";
+                        echo "<a class='btn btn-primary btn-sm' href='index.php?view=excluirAutor&id={$autor->id}'>Excluir</a>";
                     echo "</div>";
                     echo "</td>";
 
