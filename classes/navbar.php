@@ -1,5 +1,4 @@
 <?php
-
 class Navbar{
 
     private $menu;
@@ -29,9 +28,12 @@ class Navbar{
             echo '<div class="collapse navbar-collapse" id="collapsibleNavbar">';
             echo "<ul class='navbar-nav'>";
 
-            foreach($this->menu as $url => $rotulo){
+            foreach($this->menu as $link){
+
+                $url = isset($link["subpasta"])? $link["subpasta"] . "/" . $link["url"]: $link["url"];
+
                 echo "<li class='nav-item'>";
-                    echo "<a class='nav-link' href='index.php?view={$url}'>{$rotulo}</a>";
+                    echo "<a class='nav-link' href='index.php?view={$url}'>{$link["rotulo"]}</a>";
                 echo "</li>";
             }
 
