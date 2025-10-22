@@ -18,7 +18,7 @@ abstract class Model{
     }
 
     public function __set($chave, $valor){
-        $this->atributo[$chave] = $valor;
+        $this->atributos[$chave] = $valor;
     }
 
     // Busca no BDR o registro cuja PK é passado por parâmetro
