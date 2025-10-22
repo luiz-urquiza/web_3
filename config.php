@@ -13,13 +13,13 @@ const LOGO = "marcaifms.png";
 
 // Itens para formar os hyperlinks do menu do HEADER url => rótulo
 const MENU = [
-    "inicio" => "Início",
-    "sobre" => "Sobre",
-    "contato" => "Contato",
-    "usuarios" => "Usuários",
-    "livros" => "Livros",
-    "autores" => "Autores",
-    "paises" => "Países"
+    ["url" => "inicio", "rotulo" => "Início"],
+    ["url" => "sobre", "rotulo" => "Sobre"],
+    ["url" => "contato", "rotulo" => "Contato"],
+    ["url" => "usuarios", "rotulo" => "Usuários", "subpasta" => "usuarios"],
+    ["url" => "livros", "rotulo" => "Livros", "subpasta" => "livros"],
+    ["url" => "autores", "rotulo" => "Autores", "subpasta" => "autores"],
+    ["url" => "paises", "rotulo" => "Países", "subpasta" => "paises"]
 ];
 
 /**
