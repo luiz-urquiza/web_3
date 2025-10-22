@@ -130,4 +130,44 @@ abstract class Model{
         // Transforma todas os registros em um array de objetos e retorna
         return array_map(fn($r) => new $classeReferenciada($r), $registros);  
     }
+
+    public function excluir(){
+        $tabela = static::$tabela;		// A tabela de onde será excluído o registro
+        
+        // Preparando a consulta
+        $stmt = Database::getConnection()->prepare("DELETE FROM $tabela WHERE id = :id");
+        
+        // Executando a consulta passando o id do objeto a ser excluído
+        $stmt->execute([":id" => $this->id]);
+    }
+
+    public function alterar(){
+        $tabela = static::$tabela;
+        
+        $campos = array_keys($this->atributos);
+        $set = implode(", ", array_map(fn($campo) => "$campo = :$campo", $campos));
+        
+        // Gerar a consulta
+        $stmt = Database::getConnection()->prepare("UPDATE $tabela SET $set WHERE id = :id");
+        
+        // Executa a consulta
+        $stmt->execute($this->atributos);
+    }
+
+    public function inserir(){
+        $tabela = static::$tabela;
+        
+        $campos = array_keys($this->atributos);
+        $colunas = implode (", ", $campos);
+        $values = implode(", ", array_map(fn($campo) => ":$campo", $campos));
+        
+        // Gerar a consulta
+        $stmt = Database::getConnection()->prepare("INSERT INTO $tabela ($colunas) VALUES ($values)");
+        
+        // Executa a consulta
+        $stmt->execute($this->atributos);
+        
+        // Preenche o id do objeto
+        $this->id = Database::getConnection()->lastInsertId();
+    }
 } 
