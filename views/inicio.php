@@ -1,5 +1,3 @@
-<pre><?php print_r($_SERVER); ?></pre>
-
 <h1>Página Inicial</h1>
 
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam voluptate cum nesciunt, aliquid tempore iusto nostrum accusamus obcaecati officia perferendis fuga sunt id corporis, a porro rerum dolorem voluptatem.</p>
