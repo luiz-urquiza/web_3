@@ -6,7 +6,7 @@
 
 <h3>Autores de Livros</h3>
 
-<a href="index.php?view=autores/inserirAutor" class="btn btn-primary">Inserir Autor</a>
+<a href="index.php?view=autores/inserir" class="btn btn-primary">Inserir Autor</a>
 
 <table class="table table-hover">
     <thead>
@@ -34,8 +34,37 @@
                     echo "<td>";
                     echo "<div class='btn-group'>";
                         echo "<a class='btn btn-primary btn-sm'>Alterar</a>"; 
-                        echo "<a class='btn btn-primary btn-sm' href='index.php?view=autores/excluirAutor&id={$autor->id}'>Excluir</a>";
+                        echo "<button type='button' class='btn btn-sm btn-primary' data-bs-toggle='modal' data-bs-target='#excluir_{$autor->id}'>";
+                        echo "Excluir";
+                        echo "</button>";
                     echo "</div>";
+?>
+                    <!-- The Modal -->
+                    <div class="modal" id="<?php echo "excluir_{$autor->id}"?>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                    
+                          <!-- Modal Header -->
+                          <div class="modal-header">
+                            <h4 class="modal-title">Confirma a exclusão?</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                          </div>
+                    
+                          <!-- Modal body -->
+                          <div class="modal-body">
+                            <?php echo "Excluindo o autor #{$autor->id} - {$autor->nome}" ?>
+                          </div>
+                    
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <a href="index.php?view=autores/excluir&id=<?php echo $autor->id ?>" class="btn btn-success">Confirmar</a>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                    
+                        </div>
+                      </div>
+                    </div>                    
+<?php
                     echo "</td>";
 
                 echo "</tr>";
