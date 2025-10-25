@@ -6,7 +6,7 @@
 
 <h3>Autores de Livros</h3>
 
-<a href="index.php?view=autores/inserir" class="btn btn-primary">Inserir Autor</a>
+<a href="index.php?view=autores/formInserir" class="btn btn-primary">Inserir Autor</a>
 
 <table class="table table-hover">
     <thead>
