@@ -25,6 +25,7 @@
             foreach ($autores as $autor){
               $modal = new Modal($autor->id);
               $modal->setMensagem("Confirma a exclusão do autor {$autor->nome}!!");
+              $modal->setLink("index.php?view=autores/excluir&id={$autor->id}");
 
               echo <<<HTML
                   <tr>
