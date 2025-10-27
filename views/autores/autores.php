@@ -27,12 +27,10 @@
               $modal->setMensagem("Confirma a exclusão do autor {$autor->nome}!!");
               $modal->setLink("index.php?view=autores/excluir&id={$autor->id}");
 
-              echo <<<HTML
-                  <tr>
-                      <td>{$autor->id}</td>
-                      <td>{$autor->nome}</td>
-                      <td>{$autor->pais()->gentilico}</td>
-                HTML;
+              echo "<tr>";
+                echo "<td>{$autor->id}</td>";
+                echo "<td>{$autor->nome}</td>";
+                echo "<td>{$autor->pais()->gentilico}</td>";
 
                 echo "<td>";
                   foreach($autor->livros() as $livro){
@@ -47,9 +45,8 @@
                   echo "</div>";
 
                   $modal->gerarModal();
-
                 echo "</td>";
-                echo "</tr>";
+              echo "</tr>";
             }
         ?>
     </tbody>
