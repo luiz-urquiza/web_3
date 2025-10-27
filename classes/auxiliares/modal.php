@@ -5,6 +5,7 @@ class Modal{
     private $rotuloBtn;
     private $mensagem;
     private $titulo;
+    private $link;
 
 
     public function __construct($id, $rotuloBtn = "Excluir"){
@@ -15,6 +16,10 @@ class Modal{
 
     public function setMensagem($mensagem){
         $this->mensagem = $mensagem;
+    }
+
+    public function setLink($link){
+        $this->link = $link;
     }
 
     public function gerarBotao(){
@@ -44,7 +49,7 @@ class Modal{
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <div class="btn-group">
-                        <a href="index.php?view=autores/excluir&id={$this->id}" class="btn btn-success">Confirmar</a>
+                        <a class="btn btn-success" href="{$this->link}">Confirmar</a>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
