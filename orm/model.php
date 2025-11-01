@@ -59,7 +59,7 @@ abstract class Model{
 
 
     /** Relacionamento um para um genérico */
-    public function pertence_a($classeReferenciada, $atributoFK){
+    protected function pertence_a($classeReferenciada, $atributoFK){
         // Pega o valor da chave FK
         $valorFK = $this->$atributoFK;
       
@@ -72,7 +72,7 @@ abstract class Model{
      * 
      * O proprietário busca o registro que pertence a ele
      */
-    public function possui_um($classeReferenciada, $atributoFK){
+    protected function possui_um($classeReferenciada, $atributoFK){
         // Pega o valor da chave PK
         $valorPK = $this->id;
       
@@ -90,7 +90,7 @@ abstract class Model{
         return $registro? new $classeReferenciada($registro): NULL;  
     }
 
-    public function possui_muitos($classeReferenciada, $atributoFK){
+    protected function possui_muitos($classeReferenciada, $atributoFK){
         // Pega o valor da chave PK
         $valorPK = $this->id;
       
@@ -108,7 +108,7 @@ abstract class Model{
         return array_map(fn($r) => new $classeReferenciada($r), $registros);  
     }
 
-    public function pertence_a_muitos($classeReferenciada, $tabelaPivo, $fkLocal, $fkReferenciada){
+    protected function pertence_a_muitos($classeReferenciada, $tabelaPivo, $fkLocal, $fkReferenciada){
         // Pega o valor da chave PK local
         $valorPK = $this->id;
       
@@ -169,5 +169,37 @@ abstract class Model{
         
         // Preenche o id do objeto
         $this->id = Database::getConnection()->lastInsertId();
+    }
+
+    protected function vincular($tabelaPivo, $fkLocal, $fkReferenciada, $idReferenciada){
+        $idLocal = $this->id;
+
+        $stmt = Database::getConnection()->prepare("INSERT INTO $tabelaPivo ($fkLocal, $fkReferenciada)
+            VALUES (:idLocal, :idReferenciada)");
+
+        $stmt->execute(["idLocal" => $idLocal, "idReferenciada" => $idReferenciada]);
+    }
+
+    protected function desvincular($tabelaPivo, $fkLocal, $fkRererenciada, $idReferenciada){
+        $idLocal = $this->id;
+
+        $stmt = Database::getConnection()->prepare("DELETE FROM $tabelaPivo 
+            WHERE $fkLocal = :idLocal
+            AND $fkRererenciada = :idReferenciada");
+
+        $stmt->execute(["idLocal" => $idLocal, "idReferenciada" => $idReferenciada]);
+    }
+
+    protected function sincronizar($tabelaPivo, $fkLocal, $fkReferenciada, array $idsReferenciadas){
+        $idLocal = $this->id;
+
+        $stmt = Database::getConnection()->prepare("DELETE FROM $tabelaPivo 
+            WHERE $fkLocal = :idLocal");
+
+        $stmt->execute(["idLocal" => $idLocal]);
+
+        foreach ($idsReferenciadas as $id){
+            $this->vincular($tabelaPivo, $fkLocal, $fkReferenciada, $id);
+        }
     }
 } 
