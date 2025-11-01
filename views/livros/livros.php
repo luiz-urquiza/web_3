@@ -27,7 +27,7 @@ $livros = Livro::all();
                 
                 echo "<td>";
                 foreach($livro->generos() as $genero){
-                    echo $genero->nome . "<br>";
+                    echo "<div>" . $genero->nome . "</div>";
                 }
                 echo "</td>";
                 
@@ -35,6 +35,7 @@ $livros = Livro::all();
                     echo "<div class='btn-group'>";
                         echo "<a class='btn btn-primary btn-sm'>Alterar</a>"; 
                         echo "<a class='btn btn-primary btn-sm'>Excluir</a>";
+                        echo "<a class='btn btn-primary btn-sm' href='index.php?view=livros/formGeneros&livro_id={$livro->id}'>Gêneros</a>";
                     echo "</div>";
                 echo "</td>";
             echo "</tr>";
