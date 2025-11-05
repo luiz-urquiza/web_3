@@ -160,15 +160,17 @@ abstract class Model{
         $campos = array_keys($this->atributos);
         $colunas = implode (", ", $campos);
         $values = implode(", ", array_map(fn($campo) => ":$campo", $campos));
+
+        $database = Database::getConnection();
         
         // Gerar a consulta
-        $stmt = Database::getConnection()->prepare("INSERT INTO $tabela ($colunas) VALUES ($values)");
+        $stmt = $database->prepare("INSERT INTO $tabela ($colunas) VALUES ($values)");
         
         // Executa a consulta
         $stmt->execute($this->atributos);
         
         // Preenche o id do objeto
-        $this->id = Database::getConnection()->lastInsertId();
+        $this->id = $database->lastInsertId();
     }
 
     protected function vincular($tabelaPivo, $fkLocal, $fkReferenciada, $idReferenciada){
